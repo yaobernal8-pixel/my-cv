@@ -297,6 +297,16 @@
             .exp-item { flex-direction: column; }
             .company-logo { width: 48px; height: 48px; }
         }
+                /* 公司 logo 图片转为灰度，保持苹果白灰质感 */
+        .company-logo img {
+            filter: grayscale(100%);
+            opacity: 0.8;
+            transition: filter 0.2s, opacity 0.2s;
+        }
+        .company-logo img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
