@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>姚晗轩 · AI驱动新媒体运营 | 简历 · 宇宙E-BIKE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>姚晗轩 · 新媒体运营简历</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,174 +14,156 @@
         }
 
         body {
-            background: #f5f7fb;
-            font-family: 'Inter', sans-serif;
-            color: #1C2E36;
-            line-height: 1.45;
-            padding: 2rem 1.5rem;
-        }
-
-        /* 平滑滚动 */
-        html {
-            scroll-behavior: smooth;
+            background-color: #f5f5f7;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1d1d1f;
+            line-height: 1.4;
+            padding: 2rem 1rem;
         }
 
         /* 主容器 */
         .resume {
-            max-width: 1100px;
+            max-width: 1060px;
             margin: 0 auto;
         }
 
-        /* 每个板块卡片 */
-        .block {
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(0px);
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0,0,0,0.02);
-            margin-bottom: 2rem;
+        /* 每个板块卡片 - 苹果白灰风格 */
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 0 1px rgba(0,0,0,0.05);
+            margin-bottom: 1.8rem;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .block:hover {
-            box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.12);
-        }
-
-        .block-inner {
+        .card-inner {
             padding: 2rem 2.2rem;
         }
 
-        /* 头部板块特殊样式 - 深色渐变 */
-        .hero-block {
-            background: linear-gradient(135deg, #0C2E2A 0%, #1C564B 100%);
-            color: white;
-            box-shadow: none;
+        /* 头部卡片 - 深灰苹果风 */
+        .hero-card {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
         }
-        .hero-block .block-inner {
-            padding: 2.2rem 2.5rem;
+        .hero-card .card-inner {
+            padding: 2rem 2.2rem;
         }
 
-        /* 个人信息行 */
-        .personal-row {
+        /* 头部内容布局 */
+        .hero-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 2rem;
         }
-        .info-area h1 {
+        .info h1 {
             font-size: 2.8rem;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: -0.02em;
             margin-bottom: 0.3rem;
-            background: linear-gradient(135deg, #FFFFFF, #E6E9F0);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: white;
         }
-        .info-area .title {
-            font-size: 1.2rem;
-            font-weight: 500;
+        .info .tagline {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #a1a1a6;
             margin-bottom: 1rem;
-            border-left: 3px solid #F5B041;
-            padding-left: 1rem;
+            border-left: 2px solid #86868b;
+            padding-left: 0.8rem;
         }
-        .contact-details {
+        .contact-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1.2rem;
             margin-top: 0.5rem;
         }
-        .contact-details span, .contact-details a {
-            color: rgba(255,255,255,0.85);
-            font-size: 0.9rem;
+        .contact-links span, .contact-links a {
+            color: #a1a1a6;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             text-decoration: none;
+            transition: color 0.2s;
         }
-        .contact-details a:hover {
-            color: #F5B041;
+        .contact-links a:hover {
+            color: #ffffff;
         }
 
-        /* 骑行图片区域 */
+        /* 骑行图片展示区 */
         .bike-gallery {
             display: flex;
             gap: 0.8rem;
-            flex-wrap: wrap;
         }
-        .bike-img {
+        .bike-icon {
             width: 70px;
             height: 70px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 20px;
+            background: #2c2c2e;
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            backdrop-filter: blur(4px);
-            transition: all 0.2s;
+            color: #e5e5e5;
+            transition: transform 0.2s;
         }
-        .bike-img img {
+        /* 可替换为真实图片 */
+        .bike-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 20px;
-        }
-        /* 模拟图片占位，实际可替换真实骑行照片 */
-        .bike-placeholder {
-            background: #2D6A5E;
-            color: #F5B041;
+            border-radius: 1rem;
         }
 
         /* 板块标题 */
         .section-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.4rem;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: #0C2E2A;
-            border-left: 5px solid #F5B041;
-            padding-left: 1rem;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: #86868b;
+            font-size: 1.3rem;
         }
 
-        /* 工作经历卡片 */
-        .exp-cards {
+        /* 工作经历卡片内部 */
+        .exp-list {
             display: flex;
             flex-direction: column;
-            gap: 1.8rem;
-        }
-        .exp-card {
-            display: flex;
             gap: 1.5rem;
-            flex-wrap: wrap;
-            background: #FEFEFE;
-            border-radius: 1.5rem;
-            padding: 1.2rem 1.5rem;
-            border: 1px solid #ECF3F0;
-            transition: all 0.25s;
         }
-        .exp-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.1);
-            border-color: rgba(245,176,65,0.4);
+        .exp-item {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e5e5e7;
+            padding-bottom: 1.2rem;
+        }
+        .exp-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
         .company-logo {
-            width: 70px;
-            height: 70px;
-            background: #F2F5F9;
-            border-radius: 1.2rem;
+            width: 56px;
+            height: 56px;
+            background: #f5f5f7;
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1E5A50;
+            font-size: 1.6rem;
+            color: #1d1d1f;
             flex-shrink: 0;
         }
-        .exp-content {
+        .exp-details {
             flex: 1;
         }
         .exp-header {
@@ -189,112 +171,106 @@
             justify-content: space-between;
             flex-wrap: wrap;
             align-items: baseline;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .exp-company {
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: #1A5C54;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1d1d1f;
         }
         .exp-date {
-            font-size: 0.75rem;
-            background: #EFF7F5;
-            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            color: #86868b;
+            background: #f5f5f7;
+            padding: 0.2rem 0.6rem;
             border-radius: 30px;
         }
         .exp-role {
-            font-weight: 600;
-            color: #F39C12;
-            margin: 0.3rem 0 0.8rem 0;
+            font-size: 0.85rem;
+            color: #6e6e73;
+            margin-bottom: 0.6rem;
         }
         .exp-desc {
             list-style: none;
         }
         .exp-desc li {
             display: flex;
-            gap: 0.7rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.88rem;
-            color: #2C4A4A;
+            gap: 0.6rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            color: #424245;
         }
         .exp-desc li i {
-            color: #F5B041;
-            margin-top: 0.2rem;
-            width: 1.1rem;
+            color: #86868b;
+            width: 1rem;
+            margin-top: 0.15rem;
         }
 
-        /* 视频展示区域 */
-        .video-container {
-            background: #0A1F1C;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
+        /* 视频展示区 */
         .video-placeholder {
-            width: 100%;
-            background: #1F3B36;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 1rem;
+            background: #f5f5f7;
+            border-radius: 1.2rem;
+            padding: 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background 0.2s;
+        }
+        .video-placeholder:hover {
+            background: #e8e8ed;
         }
         .video-placeholder i {
             font-size: 3rem;
-            color: #F5B041;
-            margin-bottom: 1rem;
+            color: #6e6e73;
+            margin-bottom: 0.5rem;
         }
         .video-placeholder p {
-            color: #CDE5DF;
+            color: #1d1d1f;
             font-size: 0.9rem;
         }
         .video-note {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            color: #86868b;
             text-align: center;
             margin-top: 0.8rem;
-            color: #5E7D76;
         }
 
-        /* 标题生成器交互区 */
-        .interactive-card {
-            background: #FEFAF0;
-            border-radius: 1.5rem;
+        /* 标题生成器交互区 - 灰白调 */
+        .generator-box {
+            background: #f5f5f7;
+            border-radius: 1.2rem;
             padding: 1.2rem;
         }
         .gen-input {
             width: 100%;
-            padding: 12px 16px;
-            border-radius: 60px;
-            border: 1px solid #E2E8F0;
+            padding: 0.8rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid #d2d2d6;
+            background: white;
             font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
+            outline: none;
+            transition: border 0.2s;
         }
         .gen-input:focus {
-            outline: none;
-            border-color: #F5B041;
-            box-shadow: 0 0 0 3px rgba(245,176,65,0.2);
+            border-color: #6e6e73;
         }
         .btn-demo {
-            background: #F5B041;
+            background: #e5e5e7;
             border: none;
-            padding: 10px 20px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            font-size: 0.8rem;
             cursor: pointer;
+            color: #1d1d1f;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
         .btn-demo:hover {
-            background: #E67E22;
-            transform: scale(0.98);
-            color: white;
+            background: #d2d2d6;
         }
         .title-output {
             background: white;
@@ -302,98 +278,95 @@
             padding: 1rem;
             margin-top: 1rem;
             font-size: 0.85rem;
-            border-left: 4px solid #F5B041;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border-left: 3px solid #86868b;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         /* 底部 */
-        .footer-block {
-            background: #F8FCFA;
+        .footer-card {
+            background: #f5f5f7;
             text-align: center;
-            color: #5B7C74;
-            font-size: 0.85rem;
+            color: #6e6e73;
         }
 
-        @media (max-width: 750px) {
-            body { padding: 1rem; }
-            .block-inner { padding: 1.5rem; }
-            .hero-block .block-inner { padding: 1.5rem; }
-            .personal-row { flex-direction: column; align-items: flex-start; }
-            .exp-card { flex-direction: column; align-items: flex-start; }
-            .company-logo { width: 60px; height: 60px; }
+        @media (max-width: 700px) {
+            .card-inner { padding: 1.5rem; }
+            .hero-card .card-inner { padding: 1.5rem; }
+            .info h1 { font-size: 2rem; }
+            .hero-row { flex-direction: column; align-items: flex-start; }
+            .exp-item { flex-direction: column; }
+            .company-logo { width: 48px; height: 48px; }
         }
     </style>
 </head>
 <body>
 <div class="resume">
-    <!-- 板块1：头部 + 联系方式 + 骑行图片 -->
-    <div class="block hero-block">
-        <div class="block-inner">
-            <div class="personal-row">
-                <div class="info-area">
+    <!-- 头部：基础信息 + 联系方式 + 骑行图片 -->
+    <div class="card hero-card">
+        <div class="card-inner">
+            <div class="hero-row">
+                <div class="info">
                     <h1>姚晗轩</h1>
-                    <div class="title">新媒体运营 / 内容增长专家 · AI驱动</div>
-                    <div class="contact-details">
+                    <div class="tagline">新媒体运营 · 内容增长专家 · AI驱动</div>
+                    <div class="contact-links">
                         <span><i class="fas fa-phone-alt"></i> 181 1605 9128</span>
                         <span><i class="fas fa-envelope"></i> bernal2021@163.com</span>
                         <span><i class="fas fa-map-marker-alt"></i> 杭州 · 滨江</span>
-                        <a href="#"><i class="fab fa-github"></i> github.com/yaobernal8-pixel</a>
+                        <a href="#"><i class="fab fa-github"></i> yaobernal8-pixel</a>
                     </div>
                 </div>
                 <div class="bike-gallery">
-                    <!-- 骑行爱好者图片展示：这里用 Font Awesome 图标模拟，你可以替换为真实的骑行照片链接 -->
-                    <div class="bike-img bike-placeholder"><i class="fas fa-bicycle" style="font-size: 2rem;"></i></div>
-                    <div class="bike-img bike-placeholder"><i class="fas fa-mountain-city" style="font-size: 2rem;"></i></div>
-                    <div class="bike-img bike-placeholder"><i class="fas fa-road" style="font-size: 2rem;"></i></div>
-                    <!-- 实际可替换为 <img src="你的骑行照片.jpg"> -->
+                    <!-- 骑行爱好者图片展示 - 灰色图标占位，可替换为真实骑行照片 -->
+                    <div class="bike-icon"><i class="fas fa-bicycle"></i></div>
+                    <div class="bike-icon"><i class="fas fa-road"></i></div>
+                    <div class="bike-icon"><i class="fas fa-mountain"></i></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 板块2：工作经历（阳狮 + Club100）带logo -->
-    <div class="block">
-        <div class="block-inner">
+    <!-- 工作经历板块：阳狮 + Club100 -->
+    <div class="card">
+        <div class="card-inner">
             <div class="section-title">
                 <i class="fas fa-briefcase"></i> 工作经历
             </div>
-            <div class="exp-cards">
+            <div class="exp-list">
                 <!-- 阳狮集团 -->
-                <div class="exp-card">
+                <div class="exp-item">
                     <div class="company-logo">
-                        <!-- 阳狮 logo 模拟，可以替换为真实图片链接 -->
-                        <i class="fas fa-ad"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="exp-content">
+                    <div class="exp-details">
                         <div class="exp-header">
                             <span class="exp-company">阳狮集团 · Publicis Groupe</span>
                             <span class="exp-date">2023.07 – 2026.05</span>
                         </div>
                         <div class="exp-role">媒介策划 & 内容数据策略（服务百事食品线/饮料线）</div>
                         <ul class="exp-desc">
-                            <li><i class="fas fa-chart-line"></i> 策划年度内容投放策略，触达率提升22%，ROI优化15%</li>
-                            <li><i class="fas fa-tv"></i> 深度参与腾讯星光大赏、河南卫视春晚等IP项目，品牌权益落地及数据复盘</li>
-                            <li><i class="fas fa-mobile-alt"></i> 乐事朋友圈互动Digital项目，总曝光超3000w，互动率提升32%</li>
-                            <li><i class="fas fa-brain"></i> 利用秒针/infosys分析用户内容偏好，内容点击率提升18%</li>
+                            <li><i class="fas fa-chevron-right"></i> 策划年度内容投放策略，触达率提升22%，ROI优化15%</li>
+                            <li><i class="fas fa-chevron-right"></i> 参与腾讯星光大赏、河南卫视春晚等IP项目，负责品牌权益落地及数据复盘</li>
+                            <li><i class="fas fa-chevron-right"></i> 乐事朋友圈互动Digital项目，总曝光超3000w，互动率提升32%</li>
+                            <li><i class="fas fa-chevron-right"></i> 利用秒针/infosys分析用户内容偏好，内容点击率提升18%</li>
                         </ul>
                     </div>
                 </div>
                 <!-- Club100 -->
-                <div class="exp-card">
+                <div class="exp-item">
                     <div class="company-logo">
                         <i class="fas fa-bicycle"></i>
                     </div>
-                    <div class="exp-content">
+                    <div class="exp-details">
                         <div class="exp-header">
                             <span class="exp-company">Club100 · 骑行头部媒体</span>
                             <span class="exp-date">2021.07 – 2021.09</span>
                         </div>
                         <div class="exp-role">新媒体运营（实习）</div>
                         <ul class="exp-desc">
-                            <li><i class="fas fa-pen-fancy"></i> 撰写公路车种草文案 & 设计封面，平均阅读量提升2倍</li>
-                            <li><i class="fas fa-users"></i> 管理多城骑行社群，活跃度提升40%，策划线上打卡活动参与200+人</li>
-                            <li><i class="fas fa-store"></i> 协助电商上架及详情页设计，社群导流转化提升30%</li>
-                            <li><i class="fas fa-bicycle"></i> 资深骑行爱好者，累计骑行3000km+，深度理解骑行圈层</li>
+                            <li><i class="fas fa-chevron-right"></i> 撰写公路车种草文案 & 设计封面，平均阅读量提升2倍</li>
+                            <li><i class="fas fa-chevron-right"></i> 管理多城骑行社群，活跃度提升40%，策划线上打卡活动参与200+人</li>
+                            <li><i class="fas fa-chevron-right"></i> 协助电商上架及详情页设计，社群导流转化提升30%</li>
+                            <li><i class="fas fa-chevron-right"></i> 资深骑行爱好者，累计骑行3000km+，深度理解骑行圈层</li>
                         </ul>
                     </div>
                 </div>
@@ -401,57 +374,54 @@
         </div>
     </div>
 
-    <!-- 板块3：素材分拣演示视频（展示为主） -->
-    <div class="block">
-        <div class="block-inner">
+    <!-- 素材分拣演示视频板块 -->
+    <div class="card">
+        <div class="card-inner">
             <div class="section-title">
                 <i class="fas fa-folder-tree"></i> 智能素材分拣系统 · AI标准化素材库
             </div>
-            <div class="video-container">
-                <div class="video-placeholder" onclick="alert('完整演示视频可联系提供，展示AI自动分拣、打标素材并入库。目前为占位，实际视频可替换为 mp4 或 YouTube 链接。')">
-                    <i class="fas fa-play-circle"></i>
-                    <p>🎥 素材分拣系统演示录屏<br>（点击播放 / 查看演示）</p>
-                    <span style="font-size:0.7rem; background: #2A5B52; padding:4px 12px; border-radius: 60px;">演示说明</span>
-                </div>
-                <div class="video-note">
-                    💡 基于视觉分类 + LLM 标签引擎，自动识别图片/视频内容并归档，提升素材检索效率80%。<br>
-                    由于本地环境限制，此处展示视频预览（可替换为您的实际演示视频链接）。
-                </div>
+            <div class="video-placeholder" onclick="alert('完整演示视频可联系提供，展示AI自动分拣、打标素材并入库。此处为占位，实际可替换为 mp4 视频。')">
+                <i class="fas fa-play-circle"></i>
+                <p>点击预览演示视频<br>（素材分拣系统演示录屏）</p>
+            </div>
+            <div class="video-note">
+                基于视觉分类 + LLM 标签引擎，自动识别图片/视频内容并归档，提升素材检索效率80%。<br>
+                由于本地环境限制，此处展示视频占位，实际演示视频可面试时提供。
             </div>
         </div>
     </div>
 
-    <!-- 板块4：爆款标题生成器 (完整交互) -->
-    <div class="block">
-        <div class="block-inner">
+    <!-- 爆款标题生成器交互板块 -->
+    <div class="card">
+        <div class="card-inner">
             <div class="section-title">
                 <i class="fas fa-fire"></i> 爆款标题生成器 · 高转化文案引擎
             </div>
-            <div class="interactive-card">
-                <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 骑行">
-                <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题 & 文案</button>
+            <div class="generator-box">
+                <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 通勤">
+                <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题</button>
                 <div id="titleOutput" class="title-output">
                     ✨ 等待生成...
                 </div>
-                <div style="font-size: 0.7rem; margin-top: 0.8rem; color:#6c8b83;">
-                    🧠 内置抖音/小红书爆款模型 + AI增强，一键生成高点击标题及销售型文案开头。
+                <div style="font-size: 0.7rem; margin-top: 0.6rem; color:#6e6e73;">
+                    内置抖音/小红书爆款模型 + AI增强，一键生成高点击标题及销售型文案开头。
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 板块5：底部感谢观看（内容待定，先占位） -->
-    <div class="block footer-block">
-        <div class="block-inner">
-            <i class="fas fa-heart" style="color: #F5B041;"></i> 感谢观看 · 期待与您进一步交流<br>
+    <!-- 底部感谢观看（待补充） -->
+    <div class="card footer-card">
+        <div class="card-inner">
+            <i class="fas fa-heart" style="color: #6e6e73;"></i> 感谢观看 · 期待与您进一步交流<br>
             <span style="font-size: 0.75rem;">📩 联系邮箱：bernal2021@163.com ｜ 欢迎面试邀约</span>
-            <div style="margin-top: 10px;">（更多内容待补充）</div>
+            <div style="margin-top: 0.8rem; font-size: 0.7rem;">（更多内容待补充）</div>
         </div>
     </div>
 </div>
 
 <script>
-    // 标题生成器逻辑
+    // 标题生成器交互逻辑
     const genBtn = document.getElementById('generateTitleBtn');
     const keywordInput = document.getElementById('keywordInput');
     const titleOutput = document.getElementById('titleOutput');
@@ -474,7 +444,7 @@
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
         const selected = shuffled.slice(0, 3);
-        const selling = `告别通勤狼狈！${keyword}能装能跑，颜值炸街，一“骑”解锁城市漫游新方式 #骑行 #E-bike #户外生活`;
+        const selling = `告别通勤狼狈！${keyword}能装能跑，颜值在线，一“骑”解锁城市漫游新方式 #骑行 #E-bike #户外生活`;
         return { titles: selected, selling };
     }
 
@@ -484,19 +454,19 @@
         const { titles, selling } = generateTitles(kw);
         let html = `<div style="margin-bottom: 8px;"><strong>🏆 爆款标题推荐 (高点击率预测)</strong><br>`;
         titles.forEach(t => { html += `• ${t}<br>`; });
-        html += `</div><div style="margin-top: 8px;"><strong>📝 销售型文案开头：</strong><br>${selling}</div>`;
-        html += `<div style="margin-top: 8px; font-size:0.7rem; background:#FEF3DE; padding:6px; border-radius: 12px;">💡 基于小红书/抖音爆款模型+AI增强，可直接用于笔记或短视频脚本。</div>`;
+        html += `</div><div style="margin-top: 10px;"><strong>📝 销售型文案开头：</strong><br>${selling}</div>`;
+        html += `<div style="margin-top: 8px; font-size:0.7rem; background:#f5f5f7; padding:6px; border-radius: 12px;">💡 基于小红书/抖音爆款模型+AI增强，可直接用于笔记或短视频脚本。</div>`;
         titleOutput.innerHTML = html;
     });
 
-    // 初始化示例
+    // 初始示例
     setTimeout(() => {
         if (titleOutput.innerText.includes('等待生成') || titleOutput.innerText.includes('✨')) {
             const demoKw = "电助力自行车 通勤";
             const { titles, selling } = generateTitles(demoKw);
             let html = `<div style="margin-bottom: 8px;"><strong>🏆 示例标题</strong><br>• ${titles[0]}<br>• ${titles[1]}</div>
                         <div style="margin-top: 8px;"><strong>📝 示例文案开头：</strong><br>${selling}</div>
-                        <div style="margin-top:6px; font-size:0.7rem;">✨ 试试输入你产品关键词，实时生成专属爆款标题！</div>`;
+                        <div style="margin-top:6px; font-size:0.7rem;">✨ 试试输入你的产品关键词，实时生成专属爆款标题！</div>`;
             titleOutput.innerHTML = html;
         }
     }, 200);
