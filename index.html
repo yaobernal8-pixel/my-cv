@@ -415,7 +415,28 @@
             </div>
         </div>
     </div>
-
+        <!-- 骑行生活 · 照片切换板块 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="section-title">
+                    <i class="fas fa-camera"></i> 骑行生活 · 轮转瞬间
+                </div>
+                <div class="photo-slider">
+                    <div class="photo-frame">
+                        <img id="bikePhoto" src="" alt="骑行照片" onclick="nextPhoto()">
+                    </div>
+                    <div class="photo-caption" id="photoCaption"></div>
+                    <div class="photo-controls">
+                        <button class="photo-btn" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></button>
+                        <span class="photo-counter" id="photoCounter"></span>
+                        <button class="photo-btn" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="video-note" style="margin-top: 12px;">
+                        🚴 点击图片或左右按钮，切换我的骑行瞬间
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- 底部感谢观看（待补充） -->
     <div class="card footer-card">
         <div class="card-inner">
