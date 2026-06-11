@@ -359,6 +359,23 @@
             padding: 4px 12px;
             border-radius: 30px;
         }
+        /* 自定义提示框样式 */
+.custom-tooltip {
+    position: absolute;
+    background: #1d1d1f;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 30px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.1s ease;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+}
     </style>
 </head>
 <body>
@@ -466,7 +483,7 @@
                 <i class="fas fa-fire"></i> 爆款标题生成器 · 高转化文案引擎
             </div>
             <div class="generator-box">
-               <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 喜欢bikepacking的骑行老炮" title="试试输入不同的品类&amp;TA">
+               <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 喜欢bikepacking的骑行老炮" >
                 <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题</button>
                <div id="titleOutput" class="title-output"></div>
                 <div style="font-size: 0.7rem; margin-top: 0.6rem; color:#6e6e73;">
@@ -592,6 +609,45 @@ titleOutput.innerHTML = html;
     // 初始化显示第一张
     if(photoList.length > 0) {
         updatePhoto();
+    }
+        // 自定义输入框提示（鼠标悬浮立即显示）
+    const tooltipInput = document.getElementById('keywordInput');
+    let tooltipElement = null;
+
+    function showCustomTooltip(text, targetElement) {
+        if (tooltipElement) tooltipElement.remove();
+        tooltipElement = document.createElement('div');
+        tooltipElement.className = 'custom-tooltip';
+        tooltipElement.textContent = text;
+        document.body.appendChild(tooltipElement);
+        
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+        
+        const top = rect.bottom + scrollTop + 8;
+        const left = rect.left + scrollLeft + (rect.width / 2) - (tooltipElement.offsetWidth / 2);
+        
+        tooltipElement.style.top = top + 'px';
+        tooltipElement.style.left = left + 'px';
+    }
+
+    function hideCustomTooltip() {
+        if (tooltipElement) {
+            tooltipElement.remove();
+            tooltipElement = null;
+        }
+    }
+
+    if (tooltipInput) {
+        tooltipInput.addEventListener('mouseenter', () => {
+            showCustomTooltip('试试输入不同的品类 & TA', tooltipInput);
+        });
+        tooltipInput.addEventListener('mouseleave', hideCustomTooltip);
+        tooltipInput.addEventListener('focus', () => {
+            showCustomTooltip('试试输入不同的品类 & TA', tooltipInput);
+        });
+        tooltipInput.addEventListener('blur', hideCustomTooltip);
     }
 </script>
 </body>
