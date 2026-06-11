@@ -473,7 +473,7 @@
             </div>
         </div>
     </div>
-        <!-- 骑行生活 · 照片切换板块 -->
+             <!-- 骑行生活 · 照片切换板块（无文字描述） -->
         <div class="card">
             <div class="card-inner">
                 <div class="section-title">
@@ -483,14 +483,13 @@
                     <div class="photo-frame">
                         <img id="bikePhoto" src="" alt="骑行照片" onclick="nextPhoto()">
                     </div>
-                    <div class="photo-caption" id="photoCaption"></div>
                     <div class="photo-controls">
                         <button class="photo-btn" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></button>
                         <span class="photo-counter" id="photoCounter"></span>
                         <button class="photo-btn" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div class="video-note" style="margin-top: 12px;">
-                        🚴 点击图片或左右按钮，切换我的骑行瞬间
+                        🚴 点击图片或左右按钮切换
                     </div>
                 </div>
             </div>
@@ -506,7 +505,7 @@
 </div>
 
 <script>
-    // 标题生成器交互逻辑
+    // ---------- 爆款标题生成器 ----------
     const genBtn = document.getElementById('generateTitleBtn');
     const keywordInput = document.getElementById('keywordInput');
     const titleOutput = document.getElementById('titleOutput');
@@ -544,7 +543,7 @@
         titleOutput.innerHTML = html;
     });
 
-    // 初始示例
+    // 初始化示例
     setTimeout(() => {
         if (titleOutput.innerText.includes('等待生成') || titleOutput.innerText.includes('✨')) {
             const demoKw = "电助力自行车 通勤";
@@ -555,6 +554,40 @@
             titleOutput.innerHTML = html;
         }
     }, 200);
+
+    // ---------- 骑行照片切换功能（无文字描述）----------
+    // ⚠️ 请把下面 photoList 里的图片文件名改成你实际上传的图片（例如 "ride1.jpg"）
+    const photoList = [
+        { src: "ride-1.jpg" },   // 改成你的第一张照片文件名
+        { src: "ride-2.jpg" },   // 第二张
+        { src: "ride-3.jpg" },   // 第三张
+        { src: "ride-4.jpg" }    // 可以继续添加多张
+    ];
+
+    let currentIndex = 0;
+    const imgElement = document.getElementById("bikePhoto");
+    const counterElement = document.getElementById("photoCounter");
+
+    function updatePhoto() {
+        const photo = photoList[currentIndex];
+        imgElement.src = photo.src;
+        counterElement.textContent = `${currentIndex+1} / ${photoList.length}`;
+    }
+
+    function nextPhoto() {
+        currentIndex = (currentIndex + 1) % photoList.length;
+        updatePhoto();
+    }
+
+    function prevPhoto() {
+        currentIndex = (currentIndex - 1 + photoList.length) % photoList.length;
+        updatePhoto();
+    }
+
+    // 初始化显示第一张
+    if(photoList.length > 0) {
+        updatePhoto();
+    }
 </script>
 </body>
 </html>
