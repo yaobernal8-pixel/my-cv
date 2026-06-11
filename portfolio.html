@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>姚晗轩 · Club100 实习作品集</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f7; font-family: 'Inter', sans-serif; padding: 2rem; color: #1d1d1f; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: #ffffff; border-radius: 1.5rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .sub { color: #6e6e73; margin-bottom: 2rem; border-left: 3px solid #86868b; padding-left: 1rem; }
+        .section-title { font-size: 1.3rem; font-weight: 600; margin: 1.5rem 0 1rem; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .cover-card { background: #f5f5f7; border-radius: 1rem; overflow: hidden; transition: transform 0.2s; cursor: pointer; }
+        .cover-card:hover { transform: scale(1.02); }
+        .cover-card img { width: 100%; height: auto; display: block; }
+        .cover-card p { padding: 0.75rem; font-size: 0.8rem; color: #1d1d1f; text-align: center; }
+        .long-img { margin-bottom: 1.5rem; background: #f5f5f7; border-radius: 1rem; overflow: hidden; }
+        .long-img img { width: 100%; height: auto; display: block; }
+        .long-img .caption { padding: 0.5rem 1rem; font-size: 0.8rem; color: #6e6e73; background: #ffffff; }
+        .btn-back { display: inline-block; margin-top: 1rem; background: #e5e5e7; padding: 0.6rem 1.2rem; border-radius: 2rem; text-decoration: none; color: #1d1d1f; font-weight: 500; transition: background 0.2s; }
+        .btn-back:hover { background: #d2d2d6; }
+        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>📄 Club100 实习作品集</h1>
+        <div class="sub">公众号推文 · B站封面 · 电商设计</div>
+
+        <!-- 推文长截图区域 -->
+        <div class="section-title">📱 公众号推文（长截图）</div>
+        <div class="long-img">
+            <img src="推文1.jpg" alt="推文1" onclick="this.requestFullscreen?.()">
+            <div class="caption">骑行装备测评推文 · 阅读量 1.2w</div>
+        </div>
+        <div class="long-img">
+            <img src="推文2.jpg" alt="推文2" onclick="this.requestFullscreen?.()">
+            <div class="caption">城市夜骑路线推荐 · 互动量 300+</div>
+        </div>
+        <div class="long-img">
+            <img src="推文3.jpg" alt="推文3" onclick="this.requestFullscreen?.()">
+            <div class="caption">新手购车指南 · 转化率提升 25%</div>
+        </div>
+
+        <!-- B站封面网格 -->
+        <div class="section-title">🎬 B站视频封面</div>
+        <div class="grid-2">
+            <div class="cover-card"><img src="封面1.jpg" alt="封面1"><p>公路车入门指南</p></div>
+            <div class="cover-card"><img src="封面2.jpg" alt="封面2"><p>骑行穿搭分享</p></div>
+            <div class="cover-card"><img src="封面3.jpg" alt="封面3"><p>千岛湖骑行vlog</p></div>
+            <div class="cover-card"><img src="封面4.jpg" alt="封面4"><p>电助力车测评</p></div>
+        </div>
+
+        <a href="https://yaobernal8-pixel.github.io/my-cv/" class="btn-back" target="_blank">← 返回简历主页</a>
+    </div>
+</div>
+</body>
+</html>
