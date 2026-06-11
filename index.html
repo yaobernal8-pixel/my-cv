@@ -468,9 +468,7 @@
             <div class="generator-box">
                 <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 喜欢bikepacking的骑行老炮">
                 <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题</button>
-                <div id="titleOutput" class="title-output">
-                    ✨ 等待生成...
-                </div>
+               <div id="titleOutput" class="title-output"></div>
                 <div style="font-size: 0.7rem; margin-top: 0.6rem; color:#6e6e73;">
                     内置抖音/小红书爆款模型 + AI增强，一键生成高点击标题及销售型文案开头。
                 </div>
@@ -548,13 +546,13 @@
     });
 
     // 初始化示例
-    setTimeout(() => {
-    if (titleOutput.innerText.includes('等待生成') || titleOutput.innerText.includes('✨')) {
-        const demoKw = "电助力自行车 喜欢bikepacking的骑行老炮";
-        const { titles, selling } = generateTitles(demoKw);
-        // ... 后面的代码不变
-    }
-}, 200);
+// 页面加载时直接生成默认标题
+const defaultKw = "电助力自行车 喜欢bikepacking的骑行老炮";
+const { titles, selling } = generateTitles(defaultKw);
+let html = `<div style="margin-bottom: 8px;"><strong>🏆 示例标题</strong><br>• ${titles[0]}<br>• ${titles[1]}</div>
+            <div style="margin-top: 8px;"><strong>📝 示例文案开头：</strong><br>${selling}</div>
+            <div style="margin-top:6px; font-size:0.7rem;">✨ 试试输入你的产品关键词，实时生成专属爆款标题！</div>`;
+titleOutput.innerHTML = html;
 
     // ---------- 骑行照片切换功能（无文字描述）----------
     // ⚠️ 请把下面 photoList 里的图片文件名改成你实际上传的图片（例如 "ride1.jpg"）
