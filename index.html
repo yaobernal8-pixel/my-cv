@@ -489,15 +489,19 @@
             <div class="section-title">
                 <i class="fas fa-fire"></i> 爆款标题生成器 · 高转化文案引擎
             </div>
-          <div class="generator-box">
-    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+         <div class="generator-box">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- 输入框独占一行 -->
         <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 喜欢bikepacking的骑行老炮">
-        <button class="btn-demo" id="generateTitleBtn" style="white-space: nowrap;"><i class="fas fa-magic"></i> 生成爆款标题</button>
-        <a href="https://title-generator-c2jrhfckkdktwrgct9w45.streamlit.app" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #e5e5e7; padding: 8px 16px; border-radius: 40px; text-decoration: none; color: #1d1d1f; font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
-            <i class="fas fa-external-link-alt"></i> 独立生成器
-        </a>
+        <!-- 两个按钮同一行，居左放置 -->
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题</button>
+            <a href="https://title-generator-c2jrhfckkdktwrgct9w45.streamlit.app" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #e5e5e7; padding: 8px 16px; border-radius: 40px; text-decoration: none; color: #1d1d1f; font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
+                <i class="fas fa-external-link-alt"></i> 独立生成器
+            </a>
+        </div>
     </div>
-    <div id="titleOutput" class="title-output"></div>
+    <div id="titleOutput" class="title-output" style="margin-top: 1rem;"></div>
     <div style="font-size: 0.7rem; margin-top: 0.6rem; color:#6e6e73;">
         内置抖音/小红书爆款模型 + AI增强，一键生成高点击标题及销售型文案开头。
     </div>
