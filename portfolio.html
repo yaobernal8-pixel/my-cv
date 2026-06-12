@@ -6,73 +6,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #f5f5f7; font-family: 'Inter', sans-serif; padding: 2rem; color: #1d1d1f; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .card { background: #ffffff; border-radius: 1.5rem; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-        h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .sub { color: #6e6e73; margin-bottom: 2rem; border-left: 3px solid #86868b; padding-left: 1rem; }
-        .section-title { font-size: 1.3rem; font-weight: 600; margin: 1.5rem 0 1rem; }
-        
-        /* 长截图容器：固定高度 + 滚动条，点击图片时在新标签页打开完整图 */
-        .long-img {
-            margin-bottom: 1.8rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f5f7;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+            color: #1d1d1f;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .sub {
+            color: #6e6e73;
+            margin-bottom: 2rem;
+            border-left: 3px solid #86868b;
+            padding-left: 1rem;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* 三列推文布局 */
+        .tweet-grid {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .tweet-card {
+            flex: 1;
+            min-width: 250px;
             background: #f5f5f7;
             border-radius: 1rem;
             overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .long-img .img-wrapper {
+        .tweet-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        /* 图片容器：固定高度，超出滚动 */
+        .tweet-img-wrapper {
             max-height: 400px;
             overflow-y: auto;
             cursor: pointer;
-            text-align: center;
             background: #e8e8ed;
+            text-align: center;
         }
-        .long-img img {
+        .tweet-img-wrapper img {
             width: 100%;
             height: auto;
             display: block;
-            transition: opacity 0.2s;
         }
-        .long-img .img-wrapper:hover img {
-            opacity: 0.95;
+        .tweet-caption {
+            padding: 0.8rem;
+            background: white;
+            border-top: 1px solid #e5e5e7;
         }
-        .long-img .caption {
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            color: #6e6e73;
-            background: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .long-img .caption a {
+        .tweet-caption p {
+            font-size: 0.85rem;
             color: #1d1d1f;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .tweet-caption a {
+            display: inline-block;
             background: #e5e5e7;
             padding: 4px 12px;
             border-radius: 30px;
             text-decoration: none;
+            color: #1d1d1f;
             font-size: 0.7rem;
             font-weight: 500;
             transition: background 0.2s;
         }
-        .long-img .caption a:hover {
+        .tweet-caption a:hover {
             background: #d2d2d6;
         }
-        
+
         /* B站封面网格 */
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-        .cover-card { background: #f5f5f7; border-radius: 1rem; overflow: hidden; transition: transform 0.2s; cursor: pointer; }
-        .cover-card:hover { transform: scale(1.02); }
-        .cover-card img { width: 100%; height: auto; display: block; }
-        .cover-card p { padding: 0.75rem; font-size: 0.8rem; color: #1d1d1f; text-align: center; }
-        
-        .btn-back { display: inline-block; margin-top: 1rem; background: #e5e5e7; padding: 0.6rem 1.2rem; border-radius: 2rem; text-decoration: none; color: #1d1d1f; font-weight: 500; transition: background 0.2s; }
-        .btn-back:hover { background: #d2d2d6; }
-        
-        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .cover-card {
+            background: #f5f5f7;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .cover-card:hover {
+            transform: scale(1.02);
+        }
+        .cover-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .cover-card p {
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            color: #1d1d1f;
+            text-align: center;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #e5e5e7;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            color: #1d1d1f;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-back:hover {
+            background: #d2d2d6;
+        }
+
+        @media (max-width: 900px) {
+            .tweet-grid {
+                flex-direction: column;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,43 +161,42 @@
         <h1>📄 Club100 实习作品集</h1>
         <div class="sub">公众号推文 · B站封面 · 电商设计</div>
 
-        <!-- 推文长截图区域（固定高度+滚动，点击图片打开完整大图） -->
-        <div class="section-title">📱 公众号推文（长截图）</div>
-        
-        <!-- 推文1 -->
-        <div class="long-img">
-            <div class="img-wrapper" onclick="window.open('portfolio/tweet1.jpg', '_blank')">
-                <img src="portfolio/tweet1.jpg" alt="推文1">
+        <!-- 三张推文长截图：左中右排列 -->
+        <div class="section-title">📱 公众号推文（点击图片查看完整大图）</div>
+        <div class="tweet-grid">
+            <!-- 推文1 -->
+            <div class="tweet-card">
+                <div class="tweet-img-wrapper" onclick="window.open('portfolio/tweet1.jpg', '_blank')">
+                    <img src="portfolio/tweet1.jpg" alt="推文1">
+                </div>
+                <div class="tweet-caption">
+                    <p>骑行装备测评推文 · 阅读量 1.2w</p>
+                    <a href="#" target="_blank">阅读原文</a> <!-- 替换为真实链接 -->
+                </div>
             </div>
-            <div class="caption">
-                <span>骑行装备测评推文 · 阅读量 1.2w</span>
-                <a href="#" target="_blank">阅读原文</a>  <!-- 请替换为真实推文链接 -->
+            <!-- 推文2 -->
+            <div class="tweet-card">
+                <div class="tweet-img-wrapper" onclick="window.open('portfolio/tweet2.jpg', '_blank')">
+                    <img src="portfolio/tweet2.jpg" alt="推文2">
+                </div>
+                <div class="tweet-caption">
+                    <p>城市夜骑路线推荐 · 互动量 300+</p>
+                    <a href="#" target="_blank">阅读原文</a> <!-- 替换为真实链接 -->
+                </div>
             </div>
-        </div>
-        
-        <!-- 推文2 -->
-        <div class="long-img">
-            <div class="img-wrapper" onclick="window.open('portfolio/tweet2.jpg', '_blank')">
-                <img src="portfolio/tweet2.jpg" alt="推文2">
-            </div>
-            <div class="caption">
-                <span>城市夜骑路线推荐 · 互动量 300+</span>
-                <a href="#" target="_blank">阅读原文</a>  <!-- 请替换为真实推文链接 -->
-            </div>
-        </div>
-        
-        <!-- 推文3 -->
-        <div class="long-img">
-            <div class="img-wrapper" onclick="window.open('portfolio/tweet3.jpg', '_blank')">
-                <img src="portfolio/tweet3.jpg" alt="推文3">
-            </div>
-            <div class="caption">
-                <span>新手购车指南 · 转化率提升 25%</span>
-                <a href="#" target="_blank">阅读原文</a>  <!-- 请替换为真实推文链接 -->
+            <!-- 推文3 -->
+            <div class="tweet-card">
+                <div class="tweet-img-wrapper" onclick="window.open('portfolio/tweet3.jpg', '_blank')">
+                    <img src="portfolio/tweet3.jpg" alt="推文3">
+                </div>
+                <div class="tweet-caption">
+                    <p>新手购车指南 · 转化率提升 25%</p>
+                    <a href="#" target="_blank">阅读原文</a> <!-- 替换为真实链接 -->
+                </div>
             </div>
         </div>
 
-        <!-- B站封面网格 -->
+        <!-- B站封面网格（保持不变） -->
         <div class="section-title">🎬 B站视频封面</div>
         <div class="grid-2">
             <div class="cover-card"><img src="portfolio/cover1.jpg" alt="封面1"><p>公路车入门指南</p></div>
