@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>跨平台媒介策略生成器 · 姚晗轩</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --sub:#6e6e73; --line:#e5e5e7;
+    --mute:#86868b; --field:#f0f0f2;
+    --xhs:#f5455f;      /* 小红书 */
+    --dy:#1c1d24;       /* 抖音 */
+    --dy-accent:#1fd6c8;
+    --accent:#1d1d1f;
+  }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;
+    padding:2rem 1.25rem; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{max-width:880px;margin:0 auto}
+  .card{
+    background:var(--card); border-radius:1.5rem; padding:2rem;
+    margin-bottom:1.5rem; box-shadow:0 4px 14px rgba(0,0,0,.04);
+  }
+  .eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:.5rem}
+  h1{font-size:1.7rem;font-weight:600;letter-spacing:-.01em;margin-bottom:.4rem}
+  .lede{color:var(--sub);font-size:.95rem;max-width:46ch}
+
+  /* ---- 输入区 ---- */
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .field{display:flex;flex-direction:column;gap:.45rem}
+  .field label{font-size:.82rem;font-weight:600;color:var(--ink)}
+  .field select{
+    appearance:none;-webkit-appearance:none;
+    background:var(--field) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23868686' stroke-width='1.6' stroke-linecap='round'/></svg>") no-repeat right 1rem center;
+    border:1px solid transparent; border-radius:.8rem; padding:.7rem 2.2rem .7rem 1rem;
+    font:inherit;font-size:.9rem;color:var(--ink);cursor:pointer;transition:border-color .15s,background-color .15s;
+  }
+  .field select:hover{background-color:#eaeaec}
+  .field select:focus{outline:none;border-color:var(--ink)}
+  .run{
+    grid-column:1/-1;margin-top:.4rem;background:var(--ink);color:#fff;border:none;
+    border-radius:.9rem;padding:.85rem;font:inherit;font-weight:600;font-size:.95rem;
+    cursor:pointer;transition:transform .12s,opacity .15s;
+  }
+  .run:hover{opacity:.9}
+  .run:active{transform:scale(.99)}
+  .run:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  /* ---- 输出区 ---- */
+  #out{display:none}
+  #out.show{display:block;animation:rise .4s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .block{margin-bottom:2rem}
+  .block:last-child{margin-bottom:0}
+  .block-title{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.9rem}
+  .block-num{font-size:.78rem;font-weight:700;color:var(--mute);font-variant-numeric:tabular-nums}
+  .block-title h2{font-size:1.1rem;font-weight:600}
+  .reason{color:var(--sub);font-size:.9rem;margin-bottom:1rem}
+
+  /* 分配条 */
+  .split{height:46px;border-radius:.7rem;overflow:hidden;display:flex;font-size:.85rem;font-weight:600;color:#fff}
+  .split .seg{display:flex;align-items:center;justify-content:center;gap:.4rem;min-width:0;transition:flex-basis .6s cubic-bezier(.4,0,.2,1)}
+  .split .xhs{background:var(--xhs)}
+  .split .dy{background:var(--dy)}
+  .split .seg span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 .3rem}
+
+  /* 资源两栏 */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .col h3{font-size:.92rem;font-weight:600;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.xhs{background:var(--xhs)} .dot.dy{background:var(--dy)}
+  .res{margin-bottom:.8rem}
+  .res-top{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.3rem}
+  .res-top .pct{color:var(--sub);font-variant-numeric:tabular-nums}
+  .bar{height:7px;background:var(--field);border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:4px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+  .col.x .bar i{background:var(--xhs)} .col.d .bar i{background:var(--dy)}
+
+  /* 节奏 */
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+  .phase{background:var(--field);border-radius:1rem;padding:1rem}
+  .phase .ph-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+  .phase .ph-name{font-weight:600;font-size:.9rem}
+  .phase .ph-pct{font-size:1.1rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .phase p{font-size:.82rem;color:var(--sub);line-height:1.5}
+
+  /* 复盘指标 */
+  .metrics{display:flex;flex-direction:column;gap:.7rem}
+  .metric{display:flex;gap:.7rem;align-items:flex-start;font-size:.88rem}
+  .metric .tag{flex:none;font-size:.72rem;font-weight:600;padding:.2rem .55rem;border-radius:.5rem;color:#fff;margin-top:.05rem}
+  .metric .tag.xhs{background:var(--xhs)} .metric .tag.dy{background:var(--dy)} .metric .tag.all{background:var(--mute)}
+  .metric span{color:var(--ink)}
+
+  /* 策略提示 */
+  .note{background:#fff8e6;border:1px solid #f0e3b8;border-radius:1rem;padding:1rem 1.1rem;font-size:.88rem;color:#6b5a1f;display:flex;gap:.6rem}
+  .note b{font-weight:600}
+
+  .foot{font-size:.78rem;color:var(--mute);margin-top:1.5rem;line-height:1.6}
+  .back{display:inline-block;margin-top:1rem;background:#e5e5e7;padding:.6rem 1.2rem;border-radius:2rem;text-decoration:none;color:var(--ink);font-weight:500;font-size:.88rem;transition:background .2s}
+  .back:hover{background:#d2d2d6}
+
+  @media(max-width:640px){
+    body{padding:1.25rem .85rem}
+    .card{padding:1.4rem}
+    .controls{grid-template-columns:1fr}
+    .cols{grid-template-columns:1fr;gap:1.2rem}
+    .phases{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="card">
+    <div class="eyebrow">媒介策略工具 · 规则引擎</div>
+    <h1>跨平台媒介策略生成器</h1>
+    <p class="lede">输入品类、目标、预算与人群，输出小红书 / 抖音的平台分配、资源配比、投放节奏与复盘口径。背后是一套写定的媒介策略逻辑，非 AI 随机生成。</p>
+  </div>
+
+  <div class="card">
+    <div class="controls">
+      <div class="field">
+        <label for="cat">品类</label>
+        <select id="cat">
+          <option value="muying">母婴</option>
+          <option value="meizhuang">美妆个护</option>
+          <option value="shipin">食品饮料</option>
+          <option value="jiaju">家居家装</option>
+          <option value="digital">3C 数码</option>
+          <option value="fushi">服饰穿搭</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="goal">营销目标</label>
+        <select id="goal">
+          <option value="seed">内容种草</option>
+          <option value="laxin">拉新种草</option>
+          <option value="convert">转化收割</option>
+          <option value="launch">新品上市</option>
+          <option value="exposure">品牌曝光</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="budget">预算量级</label>
+        <select id="budget">
+          <option value="1">10 万以下</option>
+          <option value="2" selected>10–50 万</option>
+          <option value="3">50–200 万</option>
+          <option value="4">200 万以上</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="aud">目标人群</label>
+        <select id="aud">
+          <option value="mama">新手妈妈</option>
+          <option value="younggirl">年轻女性 20–35</option>
+          <option value="baile">都市白领</option>
+          <option value="xiachen">下沉大众</option>
+          <option value="male">男性兴趣圈层</option>
+        </select>
+      </div>
+      <button class="run" id="run">生成策略</button>
+    </div>
+  </div>
+
+  <div class="card" id="out">
+    <!-- 1 平台分配 -->
+    <div class="block">
+      <div class="block-title"><span class="block-num">01</span><h2>平台分配</h2></div>
+      <p class="reason" id="splitReason"></p>
+      <div class="split">
+        <div class="seg xhs" id="segX"><span id="labX"></span></div>
+        <div class="seg dy" id="segD"><span id="labD"></span></div>
+      </div>
+    </div>
+
+    <!-- 2 资源配比 -->
+    <div class="block">
+      <div class="block-title"><span class="block-num">02</span><h2>各平台资源配比</h2></div>
+      <div class="cols">
+        <div class="col x"><h3><span class="dot xhs"></span>小红书</h3><div id="resX"></div></div>
+        <div class="col d"><h3><span class="dot dy"></span>抖音</h3><div id="resD"></div></div>
+      </div>
+    </div>
+
+    <!-- 3 投放节奏 -->
+    <div class="block">
+      <div class="block-title"><span class="block-num">03</span><h2>投放节奏</h2></div>
+      <div class="phases" id="phases"></div>
+    </div>
+
+    <!-- 4 复盘指标 -->
+    <div class="block">
+      <div class="block-title"><span class="block-num">04</span><h2>复盘指标口径</h2></div>
+      <div class="metrics" id="metrics"></div>
+    </div>
+
+    <!-- 策略提示 -->
+    <div class="note" id="note" style="display:none"><span>💡</span><div id="noteText"></div></div>
+
+    <p class="foot">说明：本工具为媒介策略框架的规则化演示，平台资源产品（蒲公英 / 星图 / 巨量千川等）名称与玩法以各平台官方最新版本为准。</p>
+  </div>
+
+  <a href="https://yaobernal8-pixel.github.io/my-cv/" class="back">← 返回简历主页</a>
+
+</div>
+
+<script>
+/* ===== 媒介策略规则引擎 ===== */
+
+// 品类基准（小红书占比基数）
+const CAT = {
+  muying:{name:"母婴", xhs:60},
+  meizhuang:{name:"美妆个护", xhs:55},
+  shipin:{name:"食品饮料", xhs:38},
+  jiaju:{name:"家居家装", xhs:58},
+  digital:{name:"3C 数码", xhs:45},
+  fushi:{name:"服饰穿搭", xhs:52},
+};
+// 目标对小红书占比的修正 + 归类
+const GOAL = {
+  seed:   {name:"内容种草", d:+10, type:"seed"},
+  laxin:  {name:"拉新种草", d:+5,  type:"seed"},
+  convert:{name:"转化收割", d:-15, type:"convert"},
+  launch: {name:"新品上市", d:-3,  type:"launch"},
+  exposure:{name:"品牌曝光", d:-8, type:"exposure"},
+};
+// 人群修正
+const AUD = {
+  mama:{name:"新手妈妈", d:+10},
+  younggirl:{name:"年轻女性 20–35", d:+5},
+  baile:{name:"都市白领", d:+5},
+  xiachen:{name:"下沉大众", d:-15},
+  male:{name:"男性兴趣圈层", d:-5},
+};
+const BUDGET = {
+  "1":{name:"10 万以下", grain:"聚焦单平台、单一打法，不铺太散"},
+  "2":{name:"10–50 万", grain:"以一个主平台为主，另一平台小预算测试"},
+  "3":{name:"50–200 万", grain:"双平台并行，建立完整种草—转化链路"},
+  "4":{name:"200 万以上", grain:"双平台 + 品牌大曝光资源（如抖音 Topview）协同"},
+};
+
+// 资源配比（按目标类型）
+const RES_XHS = {
+  seed:    {"蒲公英达人":50,"薯条加热":20,"搜索广告":18,"信息流广告":12},
+  convert: {"搜索广告":35,"蒲公英达人":33,"信息流广告":22,"薯条加热":10},
+  launch:  {"蒲公英达人":42,"搜索广告":23,"信息流广告":20,"薯条加热":15},
+  exposure:{"信息流广告":38,"蒲公英达人":32,"薯条加热":18,"搜索广告":12},
+};
+const RES_DY = {
+  seed:    {"星图达人":50,"DOU+ 加热":20,"巨量千川":18,"品牌广告":12},
+  convert: {"巨量千川":50,"星图达人":25,"DOU+ 加热":15,"品牌广告":10},
+  launch:  {"星图达人":38,"巨量千川":30,"品牌广告":18,"DOU+ 加热":14},
+  exposure:{"品牌广告":45,"星图达人":30,"DOU+ 加热":15,"巨量千川":10},
+};
+
+// 投放节奏（按目标类型）
+const PHASE = {
+  seed:    [[30,"蓄水期","铺达人/素人笔记占搜索，抖音星图试爆点，养人群资产"],[45,"爆发期","跑量好的内容集中加投，小红书搜索卡位 + 抖音 DOU+ 放大"],[25,"长尾期","小红书笔记长效被搜，抖音保留高效素材持续投放"]],
+  convert: [[20,"蓄水期","快速测内容与人群，跑出可放量的素材模型"],[55,"收割期","抖音千川集中拉 ROI，小红书搜索广告卡决策词承接"],[25,"长尾期","稳定 ROI 的计划持续投，控制 CPA 不上扬"]],
+  launch:  [[25,"预热期","达人种草造势，铺品牌认知与新品卖点"],[55,"爆发期","千川 + 品牌大曝光集中冲首销，双平台同步引爆"],[20,"长尾期","沉淀口碑笔记与跑量素材，承接持续转化"]],
+  exposure:[[20,"蓄水期","内容与人群打底，确定主沟通点"],[60,"爆发期","品牌大曝光资源（Topview/开屏）集中放量造声量"],[20,"长尾期","延续高触达内容，维持品牌搜索热度"]],
+};
+
+// 复盘指标（按目标类型）
+const METRIC = {
+  seed:[
+    ["xhs","笔记曝光、CES 互动（赞藏评）、核心词搜索排名"],
+    ["dy","视频播放、完播率、互动率、5A 人群流转"],
+    ["all","站外（天猫/京东）品牌搜索增量 = 种草后链路效果"],
+  ],
+  convert:[
+    ["dy","巨量千川 ROI/ROAS、GMV、直播间转化率"],
+    ["xhs","种草人群站外成交、搜索广告转化"],
+    ["all","整体 CPA / 获客成本是否可控"],
+  ],
+  launch:[
+    ["all","上市期声量（曝光/触达）与种草互动量"],
+    ["dy","千川首销 ROI、新品 GMV"],
+    ["all","品牌/新品搜索指数提升幅度"],
+  ],
+  exposure:[
+    ["all","总曝光 / 触达、TA 人群浓度"],
+    ["dy","云图 5A 人群 A1–A3 流转"],
+    ["all","品牌搜索指数、自然流量提升"],
+  ],
+};
+
+const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
+
+function resHTML(obj){
+  // 按占比降序
+  return Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="res">
+      <div class="res-top"><span>${k}</span><span class="pct">${v}%</span></div>
+      <div class="bar"><i style="width:0" data-w="${v}"></i></div>
+    </div>`).join("");
+}
+
+function buildNote(catKey,goalKey,audKey,budgetKey,xhsShare){
+  const cat=CAT[catKey], aud=AUD[audKey], goal=GOAL[goalKey];
+  // 受众-平台错配（呼应"母婴/美妆类却面向男性"的情况）
+  if(audKey==="male" && (catKey==="muying"||catKey==="meizhuang"||catKey==="fushi")){
+    return `<b>受众与平台存在错配。</b>${cat.name}的核心决策者多为女性，而小红书/抖音的种草生态也偏女性人群。若目标人群确为男性兴趣圈层，建议重新评估：要么换更贴合的渠道，要么把小红书定位成"影响者链路"（如打"送给他/陪伴"场景），而非主转化场。`;
+  }
+  if(audKey==="xiachen" && xhsShare>=45){
+    return `<b>注意人群与平台的匹配度。</b>小红书主力仍偏一二线，下沉大众更适合抖音放量；本方案已下调小红书占比，执行时建议优先验证小红书在该人群的转化效率再加投。`;
+  }
+  if(goalKey==="convert"){
+    return `<b>收割依赖前期种草蓄水。</b>纯收割若没有内容种草打底，ROI 会随投放衰减。建议保留一定种草预算（尤其小红书搜索卡位），让收割有"被搜到、被信任"的内容承接。`;
+  }
+  if(budgetKey==="1"){
+    return `<b>预算有限，聚焦优先。</b>建议集中在小红书或抖音单平台、单一打法跑出模型，验证有效后再考虑双平台铺开，避免预算摊薄导致两边都不出效果。`;
+  }
+  return `<b>执行建议：</b>${cat.name} × ${goal.name}，预算量级下${BUDGET[budgetKey].grain}。先小预算测内容与人群、跑出可放量模型，再进入爆发期集中投放。`;
+}
+
+function generate(){
+  const catKey=cat.value, goalKey=goal.value, audKey=aud.value, budgetKey=budget.value;
+  const goalType=GOAL[goalKey].type;
+
+  // 平台分配
+  let xhs = CAT[catKey].xhs + GOAL[goalKey].d + AUD[audKey].d;
+  xhs = clamp(Math.round(xhs/5)*5, 20, 80);
+  const dy = 100 - xhs;
+
+  // 渲染分配条
+  segX.style.flexBasis = xhs+"%";
+  segD.style.flexBasis = dy+"%";
+  labX.textContent = `小红书 ${xhs}%`;
+  labD.textContent = `抖音 ${dy}%`;
+  const lead = xhs>=dy ? "小红书" : "抖音";
+  splitReason.innerHTML =
+    `${CAT[catKey].name}面向「${AUD[audKey].name}」、以「${GOAL[goalKey].name}」为目标，整体向 <b>${lead}</b> 倾斜。`
+    + (xhs>=dy
+        ? `小红书承担搜索决策与口碑种草，是该场景下"被搜到时被说服"的主阵地；抖音负责扩面触达与即时转化。`
+        : `抖音承担兴趣激发与站内即时收割；小红书负责种草沉淀与搜索心智，守住决策前端。`);
+
+  // 资源配比
+  resX.innerHTML = resHTML(RES_XHS[goalType]);
+  resD.innerHTML = resHTML(RES_DY[goalType]);
+
+  // 节奏
+  phases.innerHTML = PHASE[goalType].map(([p,n,desc])=>`
+    <div class="phase">
+      <div class="ph-h"><span class="ph-name">${n}</span><span class="ph-pct">${p}%</span></div>
+      <p>${desc}</p>
+    </div>`).join("");
+
+  // 复盘指标
+  const tagName={xhs:"小红书",dy:"抖音",all:"综合"};
+  metrics.innerHTML = METRIC[goalType].map(([t,txt])=>`
+    <div class="metric"><span class="tag ${t}">${tagName[t]}</span><span>${txt}</span></div>`).join("");
+
+  // 提示
+  const noteText=buildNote(catKey,goalKey,audKey,budgetKey,xhs);
+  document.getElementById("noteText").innerHTML=noteText;
+  document.getElementById("note").style.display="flex";
+
+  // 展示并触发条形动画
+  const out=document.getElementById("out");
+  out.classList.add("show");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    document.querySelectorAll('.bar i').forEach(i=>i.style.width=i.dataset.w+"%");
+  }));
+  out.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+document.getElementById("run").addEventListener("click",generate);
+</script>
+</body>
+</html>
