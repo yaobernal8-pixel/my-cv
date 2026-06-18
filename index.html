@@ -233,33 +233,11 @@
             text-align: center;
             margin-top: 0.8rem;
         }
-/* 修复爆款标题生成器中的输入框宽度，使其能够参与 flex 布局 */
-.generator-box .gen-input {
-    width: auto !important;
-    display: inline-block !important;
-    flex: 1;
-    min-width: 150px;
-}
-        /* 标题生成器交互区 - 灰白调 */
+        /* 策略生成器入口区 - 灰白调 */
         .generator-box {
             background: #f5f5f7;
             border-radius: 1.2rem;
             padding: 1.2rem;
-        }
-        .gen-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 2rem;
-            border: 1px solid #d2d2d6;
-            background: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            outline: none;
-            transition: border 0.2s;
-        }
-        .gen-input:focus {
-            border-color: #6e6e73;
         }
         .btn-demo {
             background: #e5e5e7;
@@ -278,15 +256,6 @@
         .btn-demo:hover {
             background: #d2d2d6;
         }
-        .title-output {
-            background: white;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            border-left: 3px solid #86868b;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-        }
 
         /* 底部 */
         .footer-card {
@@ -303,85 +272,6 @@
             .exp-item { flex-direction: column; }
             .company-logo { width: 48px; height: 48px; }
         }
-                /* 照片切换板块样式 */
-        .photo-slider {
-            text-align: center;
-        }
-        
-.photo-frame {
-    border-radius: 1.2rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-height: 500px;  /* 限制最大高度 */
-}
-.photo-frame img {
-    width: auto;
-    max-width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    display: block;
-}
-        .photo-frame:hover img {
-            transform: scale(1.01);
-        }
-        .photo-caption {
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #6e6e73;
-            font-weight: 500;
-        }
-        .photo-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 12px;
-        }
-        .photo-btn {
-            background: #e5e5e7;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 1rem;
-            color: #1d1d1f;
-        }
-        .photo-btn:hover {
-            background: #d2d2d6;
-        }
-        .photo-counter {
-            font-size: 0.8rem;
-            color: #6e6e73;
-            background: #f5f5f7;
-            padding: 4px 12px;
-            border-radius: 30px;
-        }
-        /* 自定义提示框样式 */
-.custom-tooltip {
-    position: absolute;
-    background: #1d1d1f;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 30px;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 1000;
-    pointer-events: none;
-    transition: opacity 0.1s ease;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.3px;
-}
     </style>
 </head>
 <body>
@@ -462,75 +352,27 @@
         </div>
     </div>
 </div>
-                   <!-- 素材分拣演示视频板块 -->
-                <div class="card">
-                    <div class="card-inner">
-                        <div class="section-title">
-                            <i class="fas fa-folder-tree"></i> 智能素材分拣系统 · AI标准化素材库
-                        </div>
-                        <div class="video-container">
-                            <video 
-                                src="素材快速识别分拣V2A.mp4" 
-                                controls 
-                                style="width: 100%; border-radius: 1.2rem; background: #f5f5f7;"
-                                poster="" 
-                            >
-                                您的浏览器不支持视频播放。
-                            </video>
-                        </div>
-                        <div class="video-note">
-                            💡 演示：AI 自动识别图片/视频内容并归档，ai工作流提效，后续可接入nas。<br>
-                            视频展示为分拣系统运行实录。
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- 爆款标题生成器交互板块 -->
+    <!-- 跨平台媒介策略生成器板块 -->
     <div class="card">
         <div class="card-inner">
             <div class="section-title">
-                <i class="fas fa-fire"></i> 爆款标题生成器 · 高转化文案引擎
+                <i class="fas fa-bullseye"></i> 跨平台媒介策略生成器
             </div>
-         <div class="generator-box">
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-        <!-- 输入框独占一行 -->
-        <input type="text" id="keywordInput" class="gen-input" placeholder="输入产品关键词，例如：E-bike 城市通勤 电助力" value="电助力自行车 喜欢bikepacking的骑行老炮">
-        <!-- 两个按钮同一行，居左放置 -->
-        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <button class="btn-demo" id="generateTitleBtn"><i class="fas fa-magic"></i> 生成爆款标题</button>
-            <a href="https://title-generator-c2jrhfckkdktwrqfct9w45.streamlit.app" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #e5e5e7; padding: 8px 16px; border-radius: 40px; text-decoration: none; color: #1d1d1f; font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
-                <i class="fas fa-external-link-alt"></i> 独立生成器
-            </a>
-        </div>
-    </div>
-    <div id="titleOutput" class="title-output" style="margin-top: 1rem;"></div>
-    <div style="font-size: 0.7rem; margin-top: 0.6rem; color:#6e6e73;">
-        内置抖音/小红书爆款模型 + AI增强，一键生成高点击标题及销售型文案开头供新媒体运营参考，后续可吸收高触达高转化标题让ai生成标题更优质。
-    </div>
-</div>
-        </div>
-    </div>
-             <!-- 骑行生活 · 照片切换板块（无文字描述） -->
-        <div class="card">
-            <div class="card-inner">
-                <div class="section-title">
-                    <i class="fas fa-camera"></i> 想骑nomad去bikepacking
-                </div>
-                <div class="photo-slider">
-                    <div class="photo-frame">
-                        <img id="bikePhoto" src="" alt="骑行照片" onclick="nextPhoto()">
-                    </div>
-                    <div class="photo-controls">
-                        <button class="photo-btn" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></button>
-                        <span class="photo-counter" id="photoCounter"></span>
-                        <button class="photo-btn" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                    <div class="video-note" style="margin-top: 12px;">
-                        🚴 点击图片或左右按钮切换
-                    </div>
-                </div>
+            <div class="generator-box">
+                <p style="font-size:0.85rem; color:#424245; line-height:1.7; margin-bottom:1.1rem;">
+                    输入品类、营销目标、预算与目标人群，自动输出小红书 / 抖音的平台分配、资源配比、投放节奏与复盘指标口径。背后是一套写定的媒介策略逻辑（蒲公英 / 星图 / 巨量千川等资源玩法），用规则引擎将策略框架工具化，非 AI 随机生成。
+                </p>
+                <a href="media-strategy.html" target="_blank" class="btn-demo" style="text-decoration:none;">
+                    <i class="fas fa-arrow-right"></i> 打开策略生成器
+                </a>
             </div>
         </div>
+    </div>
+
     <!-- 底部感谢观看（待补充） -->
     <div class="card footer-card">
         <div class="card-inner">
@@ -540,133 +382,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    // ---------- 爆款标题生成器 ----------
-    const genBtn = document.getElementById('generateTitleBtn');
-    const keywordInput = document.getElementById('keywordInput');
-    const titleOutput = document.getElementById('titleOutput');
-
-    function generateTitles(keyword) {
-        if (!keyword.trim()) keyword = "电助力自行车";
-        const templates = [
-            `⚠️打工人通勤神器！${keyword}实测一周，省下一小时🚴‍♂️`,
-            `🔥后悔没早入！${keyword}凭什么叫“城市小钢炮”？全场景测评来了！`,
-            `💰年省3000油费？${keyword}让我告别堵车焦虑，骑行党狂喜！`,
-            `🚀抄作业！${keyword}选购3要3不要，小白秒变老司机（附清单）`,
-            `🌿城市出逃企划｜${keyword}的100公里骑行vlog，治愈又自由`,
-            `⚡爆款预警！${keyword}竟然能骑出「推背感」？户外博主都在安利`,
-            `📈数据党实测：${keyword}续航/爬坡/颜值，对比大疆哪家强？`,
-            `🤯看完这篇再买！${keyword}避坑指南+改装思路，省下2000智商税`
-        ];
-        const shuffled = [...templates];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        const selected = shuffled.slice(0, 3);
-        const selling = `告别通勤狼狈！${keyword}能装能跑，颜值在线，一“骑”解锁城市漫游新方式 #骑行 #E-bike #户外生活`;
-        return { titles: selected, selling };
-    }
-
-    genBtn.addEventListener('click', () => {
-        let kw = keywordInput.value;
-        if (!kw.trim()) kw = "电助力自行车";
-        const { titles, selling } = generateTitles(kw);
-        let html = `<div style="margin-bottom: 8px;"><strong>🏆 爆款标题推荐 (高点击率预测)</strong><br>`;
-        titles.forEach(t => { html += `• ${t}<br>`; });
-        html += `</div><div style="margin-top: 10px;"><strong>📝 销售型文案开头：</strong><br>${selling}</div>`;
-        html += `<div style="margin-top: 8px; font-size:0.7rem; background:#f5f5f7; padding:6px; border-radius: 12px;">💡 基于小红书/抖音爆款模型+AI增强，可直接用于笔记或短视频脚本。</div>`;
-        titleOutput.innerHTML = html;
-    });
-
-    // 初始化示例
-// 页面加载时直接生成默认标题
-const defaultKw = "电助力自行车 喜欢bikepacking的骑行老炮";
-const { titles, selling } = generateTitles(defaultKw);
-let html = `<div style="margin-bottom: 8px;"><strong>🏆 示例标题</strong><br>• ${titles[0]}<br>• ${titles[1]}</div>
-            <div style="margin-top: 8px;"><strong>📝 示例文案开头：</strong><br>${selling}</div>
-            <div style="margin-top:6px; font-size:0.7rem;">✨ 试试输入你的产品关键词，实时生成专属爆款标题！</div>`;
-titleOutput.innerHTML = html;
-
-    // ---------- 骑行照片切换功能（无文字描述）----------
-    // ⚠️ 请把下面 photoList 里的图片文件名改成你实际上传的图片（例如 "ride1.jpg"）
-    const photoList = [
-        { src: "bike-photos/ride-1.jpg" },
-        { src: "bike-photos/ride-3.jpg" },
-        { src: "bike-photos/ride-4.jpg" },
-        { src: "bike-photos/ride-5.jpg" },
-        { src: "bike-photos/ride-6.jpg" },
-        { src: "bike-photos/ride-7.jpg" },
-        { src: "bike-photos/ride-8.jpg" },
-        { src: "bike-photos/ride-9.jpg" },
-        { src: "bike-photos/ride-10.jpg" },
-        { src: "bike-photos/ride-11.jpg" }
-    ];
-
-    let currentIndex = 0;
-    const imgElement = document.getElementById("bikePhoto");
-    const counterElement = document.getElementById("photoCounter");
-
-    function updatePhoto() {
-        const photo = photoList[currentIndex];
-        imgElement.src = photo.src;
-        counterElement.textContent = `${currentIndex+1} / ${photoList.length}`;
-    }
-
-    function nextPhoto() {
-        currentIndex = (currentIndex + 1) % photoList.length;
-        updatePhoto();
-    }
-
-    function prevPhoto() {
-        currentIndex = (currentIndex - 1 + photoList.length) % photoList.length;
-        updatePhoto();
-    }
-
-    // 初始化显示第一张
-    if(photoList.length > 0) {
-        updatePhoto();
-    }
-        // 自定义输入框提示（鼠标悬浮立即显示）
-    const tooltipInput = document.getElementById('keywordInput');
-    let tooltipElement = null;
-
-    function showCustomTooltip(text, targetElement) {
-        if (tooltipElement) tooltipElement.remove();
-        tooltipElement = document.createElement('div');
-        tooltipElement.className = 'custom-tooltip';
-        tooltipElement.textContent = text;
-        document.body.appendChild(tooltipElement);
-        
-        const rect = targetElement.getBoundingClientRect();
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-        
-        const top = rect.bottom + scrollTop + 8;
-        const left = rect.left + scrollLeft + (rect.width / 2) - (tooltipElement.offsetWidth / 2);
-        
-        tooltipElement.style.top = top + 'px';
-        tooltipElement.style.left = left + 'px';
-    }
-
-    function hideCustomTooltip() {
-        if (tooltipElement) {
-            tooltipElement.remove();
-            tooltipElement = null;
-        }
-    }
-
-    if (tooltipInput) {
-        tooltipInput.addEventListener('mouseenter', () => {
-            showCustomTooltip('试试输入不同的品类 & TA', tooltipInput);
-        });
-        tooltipInput.addEventListener('mouseleave', hideCustomTooltip);
-        tooltipInput.addEventListener('focus', () => {
-            showCustomTooltip('试试输入不同的品类 & TA', tooltipInput);
-        });
-        tooltipInput.addEventListener('blur', hideCustomTooltip);
-    }
-</script>
 </body>
 </html>
